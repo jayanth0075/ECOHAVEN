@@ -128,3 +128,50 @@ def join_challenge(request, challenge_id):
 
     except Challenge.DoesNotExist:
         return Response({'error': 'Challenge not found or inactive'}, status=status.HTTP_404_NOT_FOUND)
+
+
+# ---------------- CONTACT ---------------- #
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def contact_submit(request):
+    """
+    Handle contact form submissions
+    """
+    from .contact_models import ContactMessage
+    
+    name = request.data.get('name')
+    email = request.data.get('email')
+    subject = request.data.get('subject')
+    message = request.data.get('message')
+    
+    if not all([name, email, subject, message]):
+        return Response(
+            {"error": "All fields are required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    try:
+        contact_message = ContactMessage.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+        
+        # TODO: Send email notification to admin
+        # send_mail(
+        #     subject=f"New Contact Message: {subject}",
+        #     message=f"From: {name} ({email})\n\n{message}",
+        #     from_email=settings.DEFAULT_FROM_EMAIL,
+        #     recipient_list=[settings.CONTACT_EMAIL],
+        # )
+        
+        return Response(
+            {"message": "Message sent successfully", "id": contact_message.id},
+            status=status.HTTP_201_CREATED
+        )
+    except Exception as e:
+        return Response(
+            {"error": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
