@@ -14,4 +14,7 @@ urlpatterns = [
     # Challenges
     path('challenges/', views.active_challenges, name='active_challenges'),
     path('challenges/<uuid:challenge_id>/join/', views.join_challenge, name='join_challenge'),
+    
+    # Contact
+    path('contact/', views.contact_submit, name='contact_submit'),
 ]
