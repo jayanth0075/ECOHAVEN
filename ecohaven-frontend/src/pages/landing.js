@@ -46,8 +46,21 @@ const Landing = () => {
             <Link to="/register" className="btn btn-primary btn-lg">
               Get Started
             </Link>
-            <Link to="/login" className="btn btn-outline btn-lg">
-              Login
+            <Link to="/about" className="btn btn-outline btn-lg">
+              Learn More
+            </Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+            <Link to="/features" className="text-link">
+              View Features
+            </Link>
+            <span className="text-gray-400">|</span>
+            <Link to="/contact" className="text-link">
+              Contact Us
+            </Link>
+            <span className="text-gray-400">|</span>
+            <Link to="/login" className="text-link">
+              Sign In
             </Link>
           </div>
         </motion.div>
