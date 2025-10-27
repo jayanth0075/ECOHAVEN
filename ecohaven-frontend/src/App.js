@@ -11,6 +11,9 @@ import Register from "./pages/register";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
 import Sessions from "./pages/sessions";
+import About from "./pages/about";
+import Contact from "./pages/contact";
+import Features from "./pages/features";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -42,6 +45,9 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
