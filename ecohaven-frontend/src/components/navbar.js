@@ -59,21 +59,43 @@ const Navbar = ({ isLoggedIn, onLogout, userName = "User", userAvatar = null }) 
             </motion.div>
             
             <ul className="navbar-links">
-                <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
-                    <Link to="/feed">
-                        🌍 Community Feed
-                    </Link>
-                </motion.li>
-                <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
-                    <Link to="/sessions">
-                        💪 Sessions
-                    </Link>
-                </motion.li>
-                <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
-                    <Link to="/challenges">
-                        🏆 Challenges
-                    </Link>
-                </motion.li>
+                {isLoggedIn ? (
+                    <>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/feed">
+                                🌍 Community Feed
+                            </Link>
+                        </motion.li>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/sessions">
+                                💪 Sessions
+                            </Link>
+                        </motion.li>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/challenges">
+                                🏆 Challenges
+                            </Link>
+                        </motion.li>
+                    </>
+                ) : (
+                    <>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/about">
+                                About
+                            </Link>
+                        </motion.li>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/features">
+                                Features
+                            </Link>
+                        </motion.li>
+                        <motion.li whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
+                            <Link to="/contact">
+                                Contact
+                            </Link>
+                        </motion.li>
+                    </>
+                )}
             </ul>
 
             <div className="navbar-auth">
