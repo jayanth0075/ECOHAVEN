@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sessions | EcoHaven{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/sessions.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="session-container">
+    <div class="session-card">
+        <h3>Eco Meditation</h3>
+        <p>Join us for a live meditation session this weekend 🌿</p>
+    </div>
+</div>
+{% endblock %}

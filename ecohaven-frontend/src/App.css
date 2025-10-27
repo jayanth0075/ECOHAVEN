@@ -1,0 +1,557 @@
+/* ========================================
+   🌿 ECOHAVEN - MODERN APP STYLES
+   Beautiful, responsive, and performant CSS
+======================================== */
+
+/* CSS Variables for Consistent Design System */
+:root {
+  /* Primary Colors - Nature Inspired */
+  --primary-emerald: #10b981;
+  --primary-cyan: #0891b2;
+  --primary-violet: #8b5cf6;
+  --primary-pink: #ec4899;
+  --primary-blue: #3b82f6;
+  --primary-indigo: #6366f1;
+
+  /* Surface Colors */
+  --surface-dark: #0f172a;
+  --surface-darker: #020617;
+  --surface-light: rgba(255, 255, 255, 0.05);
+  --surface-lighter: rgba(255, 255, 255, 0.1);
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-tertiary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.4);
+
+  /* Shadows & Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Typography */
+  --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', Consolas, monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--surface-darker);
+  overflow-x: hidden;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--primary-emerald), var(--primary-cyan));
+  border-radius: 10px;
+  border: 2px solid var(--surface-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--primary-cyan), var(--primary-violet));
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   APP COMPONENT STYLES
+======================================== */
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Enhanced App Header with Stunning Background */
+.App-header {
+  background: linear-gradient(135deg,
+    var(--surface-darker) 0%,
+    #1e293b 25%,
+    #374151 50%,
+    #1f2937 75%,
+    var(--surface-dark) 100%
+  );
+
+  /* Layered background effects */
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 2vw + 1rem, 2rem);
+  color: var(--text-primary);
+  position: relative;
+  padding: var(--space-xl);
+}
+
+/* Animated background pattern */
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+  animation: backgroundFloat 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Enhanced App Logo */
+.App-logo {
+  height: min(40vmin, 200px);
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+  position: relative;
+  z-index: 2;
+}
+
+/* Enhanced logo animation with smooth easing */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: logoSpin infinite 20s cubic-bezier(0.4, 0, 0.6, 1);
+  }
+}
+
+/* Stunning App Link */
+.App-link {
+  color: transparent;
+  background: linear-gradient(45deg,
+    var(--primary-emerald),
+    var(--primary-cyan),
+    var(--primary-violet)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease-in-out infinite;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.App-link:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+}
+
+.App-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(45deg, var(--primary-emerald), var(--primary-cyan));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-normal);
+}
+
+.App-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ========================================
+   ENHANCED ANIMATIONS
+======================================== */
+
+/* Smooth logo spin with perfect easing */
+@keyframes logoSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Gradient animation for links */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Background floating animation */
+@keyframes backgroundFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+    opacity: 0.1;
+  }
+}
+
+/* Pulse animation for glowing effects */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+/* Glass morphism utility */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: var(--surface-light);
+  border: 1px solid var(--surface-lighter);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(45deg, var(--primary-emerald), var(--primary-cyan), var(--primary-violet));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+/* Glow effect utility */
+.glow {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  transition: box-shadow var(--transition-normal);
+}
+
+.glow:hover {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+}
+
+/* Floating animation utility */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Shimmer effect utility */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .App-header {
+    padding: var(--space-lg);
+    font-size: clamp(0.9rem, 4vw + 0.5rem, 1.5rem);
+  }
+
+  .App-logo {
+    height: min(35vmin, 150px);
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .App-header {
+    padding: var(--space-xl);
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1025px) {
+  .App-header {
+    padding: var(--space-2xl);
+  }
+}
+
+/* High resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  .App-logo {
+    filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4));
+  }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #ffffff;
+    --surface-dark: #0f172a;
+    --surface-darker: #020617;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .App-header {
+    background: white !important;
+    color: black !important;
+    min-height: auto !important;
+  }
+
+  .App-logo {
+    filter: none !important;
+  }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+======================================== */
+
+/* GPU acceleration for animations */
+.App-logo,
+.App-link,
+.glass {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+======================================== */
+
+/* Focus indicators */
+*:focus {
+  outline: 2px solid var(--primary-emerald);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --primary-emerald: #26cf80;
+    --primary-cyan: #00ddff;
+  }
+}
+
+/* ========================================
+   CUSTOM PROPERTIES FOR COMPONENTS
+======================================== */
+
+/* Button styles */
+.btn {
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(45deg, var(--primary-emerald), var(--primary-cyan));
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Card styles */
+.card {
+  background: var(--surface-light);
+  border: 1px solid var(--surface-lighter);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* ========================================
+   MODERN LOADING STATES
+======================================== */
+
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+/* Success states */
+.success {
+  color: var(--primary-emerald);
+  animation: pulse 2s infinite;
+}
+
+/* Error states */
+.error {
+  color: #cf2626;
+  animation: pulse 2s infinite;
+}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile | EcoHaven{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="card profile-card">
+        <img src="{% static 'images/default-avatar.png' %}" alt="User Avatar">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+    </div>
+</div>
+{% endblock %}

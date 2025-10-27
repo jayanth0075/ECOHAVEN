@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Community Feed | EcoHaven{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/feed.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="feed-container">
+    <div class="post card">
+        <h3>Welcome to EcoHaven 🌱</h3>
+        <p>This is your first post!</p>
+    </div>
+
+    {% for post in posts %}
+    <div class="post card">
+        <h3>{{ post.author.username }}</h3>
+        <p>{{ post.content }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

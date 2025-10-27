@@ -1,0 +1,16 @@
+.session-container {
+  max-width: 600px;
+  margin: 3rem auto;
+}
+
+.session-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.session-card h3 {
+  margin-bottom: 0.5rem;
+}
