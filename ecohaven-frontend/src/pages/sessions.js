@@ -1,776 +1,414 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Clock, MapPin, Users, Star, Calendar, CheckCircle, Zap } from 'lucide-react';
+import '../styles/sessions.css';
 
-// Mock API for demonstration
-const mockApi = {
-  get: async () => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return {
-      data: [
-        {
-          id: 1,
-          title: "Morning Meditation & Mindfulness",
-          description: "Start your day with inner peace and clarity through guided meditation and breathing exercises.",
-          date: "2025-08-26",
-          time: "07:00 AM",
-          duration: "60 minutes",
-          location: "Serenity Garden",
-          instructor: "Dr. Sarah Chen",
-          participants: 12,
-          maxParticipants: 20,
-          category: "Meditation",
-          difficulty: "Beginner",
-          image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop"
-        },
-        {
-          id: 2,
-          title: "Therapeutic Yoga Flow",
-          description: "Gentle yoga practice designed to release tension, improve flexibility, and promote healing.",
-          date: "2025-08-26",
-          time: "09:30 AM",
-          duration: "90 minutes",
-          location: "Wellness Studio A",
-          instructor: "Maya Rodriguez",
-          participants: 8,
-          maxParticipants: 15,
-          category: "Yoga",
-          difficulty: "Intermediate",
-          image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=250&fit=crop"
-        },
-        {
-          id: 3,
-          title: "Nature Walk & Forest Bathing",
-          description: "Connect with nature through mindful walking and forest bathing techniques for stress relief.",
-          date: "2025-08-27",
-          time: "06:00 PM",
-          duration: "120 minutes",
-          location: "EcoHaven Trails",
-          instructor: "James Wilson",
-          participants: 15,
-          maxParticipants: 25,
-          category: "Nature Therapy",
-          difficulty: "All Levels",
-          image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=250&fit=crop"
-        },
-        {
-          id: 4,
-          title: "Sound Healing & Crystal Therapy",
-          description: "Experience deep relaxation through sound frequencies and crystal energy healing.",
-          date: "2025-08-28",
-          time: "07:00 PM",
-          duration: "75 minutes",
-          location: "Harmony Room",
-          instructor: "Luna Starr",
-          participants: 6,
-          maxParticipants: 12,
-          category: "Sound Healing",
-          difficulty: "All Levels",
-          image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=250&fit=crop"
-        }
-      ]
-    };
-  }
-};
+const Sessions = () => {
+  const [activeTab, setActiveTab] = useState('upcoming');
+  const [searchTerm, setSearchTerm] = useState('');
 
-// CSS styles as objects
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #020617 0%, #1e293b 25%, #374151 50%, #1f2937 75%, #0f172a 100%)',
-    position: 'relative',
-    overflow: 'hidden'
-  },
-  backgroundOrb1: {
-    position: 'fixed',
-    top: '-10rem',
-    right: '-10rem',
-    width: '24rem',
-    height: '24rem',
-    background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%)',
-    borderRadius: '50%',
-    filter: 'blur(3rem)',
-    pointerEvents: 'none',
-    zIndex: 0
-  },
-  backgroundOrb2: {
-    position: 'fixed',
-    bottom: '-10rem',
-    left: '-10rem',
-    width: '24rem',
-    height: '24rem',
-    background: 'radial-gradient(circle, rgba(8, 145, 178, 0.1) 0%, transparent 70%)',
-    borderRadius: '50%',
-    filter: 'blur(3rem)',
-    pointerEvents: 'none',
-    zIndex: 0
-  },
-  backgroundOrb3: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '24rem',
-    height: '24rem',
-    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%)',
-    borderRadius: '50%',
-    filter: 'blur(3rem)',
-    pointerEvents: 'none',
-    zIndex: 0
-  },
-  content: {
-    position: 'relative',
-    zIndex: 10,
-    maxWidth: '1280px',
-    margin: '0 auto',
-    padding: '3rem 1.5rem'
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '3rem'
-  },
-  badge: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    padding: '0.5rem 1rem',
-    borderRadius: '2rem',
-    background: 'rgba(16, 185, 129, 0.1)',
-    border: '1px solid rgba(16, 185, 129, 0.2)',
-    color: '#10b981',
-    fontSize: '0.9rem',
-    fontWeight: '500',
-    marginBottom: '1.5rem'
-  },
-  title: {
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    background: 'linear-gradient(135deg, #ffffff, #a7f3d0, #67e8f9)',
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    color: 'transparent',
-    marginBottom: '1.5rem',
-    lineHeight: '1.2'
-  },
-  subtitle: {
-    fontSize: '1.25rem',
-    color: 'rgba(255, 255, 255, 0.7)',
-    maxWidth: '48rem',
-    margin: '0 auto 2rem',
-    lineHeight: '1.6'
-  },
-  statsContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '2rem',
-    marginBottom: '3rem'
-  },
-  stat: {
-    textAlign: 'center'
-  },
-  statNumber: {
-    fontSize: '1.875rem',
-    fontWeight: 'bold',
-    marginBottom: '0.25rem'
-  },
-  statLabel: {
-    fontSize: '0.875rem',
-    color: 'rgba(255, 255, 255, 0.4)'
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-    gap: '2rem',
-    maxWidth: '1200px',
-    margin: '0 auto'
-  },
-  card: {
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: '1rem',
-    background: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer'
-  },
-  cardHover: {
-    transform: 'translateY(-5px) scale(1.02)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-  },
-  imageContainer: {
-    position: 'relative',
-    height: '12rem',
-    overflow: 'hidden'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transition: 'transform 0.5s ease'
-  },
-  imageOverlay: {
-    position: 'absolute',
-    inset: 0,
-    background: 'linear-gradient(to top, rgba(15, 23, 42, 0.6) 0%, transparent 50%, rgba(15, 23, 42, 0.2) 100%)'
-  },
-  categoryBadge: {
-    position: 'absolute',
-    top: '1rem',
-    left: '1rem',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.375rem',
-    padding: '0.375rem 0.75rem',
-    borderRadius: '2rem',
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    background: 'rgba(255, 255, 255, 0.9)',
-    color: '#1e293b',
-    backdropFilter: 'blur(4px)'
-  },
-  difficultyBadge: {
-    position: 'absolute',
-    top: '1rem',
-    right: '1rem',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.25rem',
-    padding: '0.25rem 0.5rem',
-    borderRadius: '2rem',
-    fontSize: '0.75rem',
-    fontWeight: '500',
-    background: 'rgba(15, 23, 42, 0.8)',
-    color: 'white',
-    backdropFilter: 'blur(4px)'
-  },
-  urgencyBadge: {
-    position: 'absolute',
-    bottom: '1rem',
-    right: '1rem',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.25rem',
-    padding: '0.25rem 0.5rem',
-    borderRadius: '2rem',
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    background: 'rgba(249, 115, 22, 0.9)',
-    color: 'white',
-    animation: 'pulse 2s infinite'
-  },
-  cardContent: {
-    padding: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem'
-  },
-  cardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: '0.5rem',
-    transition: 'color 0.3s ease'
-  },
-  cardDescription: {
-    color: 'rgba(255, 255, 255, 0.7)',
-    fontSize: '0.875rem',
-    lineHeight: '1.5',
-    marginBottom: '0.75rem'
-  },
-  instructor: {
-    color: '#10b981',
-    fontWeight: '500',
-    fontSize: '0.875rem'
-  },
-  detailsGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '1rem'
-  },
-  detail: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    color: 'rgba(255, 255, 255, 0.7)',
-    fontSize: '0.875rem',
-    fontWeight: '500'
-  },
-  progressContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem'
-  },
-  progressLabel: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '0.75rem'
-  },
-  progressBar: {
-    width: '100%',
-    height: '0.5rem',
-    background: 'rgba(71, 85, 105, 0.5)',
-    borderRadius: '0.25rem',
-    overflow: 'hidden'
-  },
-  progressFill: {
-    height: '100%',
-    background: 'linear-gradient(90deg, #10b981, #0891b2)',
-    borderRadius: '0.25rem',
-    transition: 'width 1s ease-out'
-  },
-  button: {
-    width: '100%',
-    marginTop: '1rem',
-    padding: '0.75rem 1.5rem',
-    background: 'linear-gradient(135deg, #10b981, #0891b2)',
-    color: 'white',
-    fontWeight: '600',
-    borderRadius: '0.75rem',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    fontSize: '0.875rem'
-  },
-  buttonHover: {
-    background: 'linear-gradient(135deg, #059669, #0e7490)',
-    transform: 'scale(1.02)'
-  },
-  skeleton: {
-    borderRadius: '1rem',
-    background: 'rgba(30, 41, 59, 0.3)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(71, 85, 105, 0.5)',
-    overflow: 'hidden'
-  },
-  skeletonImage: {
-    height: '12rem',
-    background: 'rgba(71, 85, 105, 0.5)'
-  },
-  skeletonContent: {
-    padding: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem'
-  },
-  skeletonBar: {
-    height: '1rem',
-    background: 'rgba(71, 85, 105, 0.5)',
-    borderRadius: '0.5rem',
-    animation: 'pulse 2s infinite'
-  },
-  emptyState: {
-    gridColumn: '1 / -1',
-    textAlign: 'center',
-    padding: '4rem 0'
-  },
-  emptyIcon: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '6rem',
-    height: '6rem',
-    borderRadius: '50%',
-    background: 'rgba(30, 41, 59, 0.5)',
-    border: '1px solid rgba(71, 85, 105, 0.5)',
-    fontSize: '3rem',
-    marginBottom: '1.5rem'
-  },
-  emptyTitle: {
-    fontSize: '1.5rem',
-    fontWeight: '600',
-    color: 'rgba(255, 255, 255, 0.7)',
-    marginBottom: '1rem'
-  },
-  emptyDescription: {
-    color: 'rgba(255, 255, 255, 0.4)',
-    maxWidth: '28rem',
-    margin: '0 auto 2rem',
-    lineHeight: '1.6'
-  }
-};
-
-// Add CSS animations
-const cssAnimations = `
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.02); }
-  }
-`;
-
-// Icon components using CSS/Unicode symbols
-const CalendarIcon = () => <span style={{color: '#10b981', fontSize: '1rem'}}>📅</span>;
-const ClockIcon = () => <span style={{color: '#0891b2', fontSize: '1rem'}}>⏰</span>;
-const LocationIcon = () => <span style={{color: '#8b5cf6', fontSize: '1rem'}}>📍</span>;
-const UsersIcon = () => <span style={{color: '#ec4899', fontSize: '1rem'}}>👥</span>;
-const HeartIcon = () => <span style={{color: '#ec4899', fontSize: '1rem'}}>💖</span>;
-const SparklesIcon = () => <span style={{color: '#fbbf24', fontSize: '0.75rem'}}>✨</span>;
-
-// Session Card Component
-function SessionCard({ session, index }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const categoryColors = {
-    "Meditation": 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(20, 184, 166, 0.2))',
-    "Yoga": 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(147, 51, 234, 0.2))',
-    "Nature Therapy": 'linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2))',
-    "Sound Healing": 'linear-gradient(135deg, rgba(8, 145, 178, 0.2), rgba(59, 130, 246, 0.2))'
-  };
-
-  const getDifficultyIcon = (difficulty) => {
-    switch (difficulty) {
-      case "Beginner": return "🌱";
-      case "Intermediate": return "⭐";
-      case "All Levels": return "💚";
-      default: return "💚";
+  const upcomingSessions = [
+    {
+      id: 1,
+      title: 'Zero Waste Living 101',
+      instructor: 'Sarah Green',
+      date: 'Oct 30, 2025',
+      time: '7:00 PM',
+      duration: '2 hours',
+      level: 'Beginner',
+      category: 'Lifestyle',
+      platform: 'Zoom',
+      registered: 42,
+      capacity: 50,
+      tags: ['#zerowaste', '#sustainable', '#lifestyle'],
+      description: 'Learn practical tips to reduce waste in your daily life and start living sustainably.'
+    },
+    {
+      id: 2,
+      title: 'Urban Gardening Masterclass',
+      instructor: 'Mike Eco',
+      date: 'Nov 2, 2025',
+      time: '6:00 PM',
+      duration: '2.5 hours',
+      level: 'Intermediate',
+      category: 'Gardening',
+      platform: 'Microsoft Teams',
+      registered: 87,
+      capacity: 100,
+      tags: ['#gardening', '#urban', '#growing'],
+      description: 'Master the art of growing vegetables and herbs in small spaces.'
+    },
+    {
+      id: 3,
+      title: 'Solar Panel Installation',
+      instructor: 'Dr. Alex Chen',
+      date: 'Nov 5, 2025',
+      time: '8:00 PM',
+      duration: '3 hours',
+      level: 'Advanced',
+      category: 'Renewable Energy',
+      platform: 'YouTube Live',
+      registered: 342,
+      capacity: 500,
+      tags: ['#solar', '#renewable', '#energy'],
+      description: 'Complete guide to installing and maintaining solar panels for your home.'
+    },
+    {
+      id: 4,
+      title: 'Sustainable Fashion Workshop',
+      instructor: 'Jessica Mindful',
+      date: 'Nov 8, 2025',
+      time: '5:30 PM',
+      duration: '1.5 hours',
+      level: 'Beginner',
+      category: 'Fashion',
+      platform: 'Zoom',
+      registered: 38,
+      capacity: 40,
+      tags: ['#fashion', '#sustainable', '#eco'],
+      description: 'Discover how to build a sustainable and stylish wardrobe.'
+    },
+    {
+      id: 5,
+      title: 'Composting 101',
+      instructor: 'David Green',
+      date: 'Nov 10, 2025',
+      time: '7:00 PM',
+      duration: '1.5 hours',
+      level: 'Beginner',
+      category: 'Waste Management',
+      platform: 'Zoom',
+      registered: 45,
+      capacity: 60,
+      tags: ['#composting', '#organic', '#waste'],
+      description: 'Turn your kitchen scraps into black gold with our composting guide.'
+    },
+    {
+      id: 6,
+      title: 'Ocean Conservation 101',
+      instructor: 'Dr. Lisa Ocean',
+      date: 'Nov 12, 2025',
+      time: '6:30 PM',
+      duration: '2 hours',
+      level: 'All Levels',
+      category: 'Conservation',
+      platform: 'YouTube Live',
+      registered: 756,
+      capacity: 1000,
+      tags: ['#ocean', '#conservation', '#marine'],
+      description: 'Learn about marine ecosystems and how you can help protect our oceans.'
     }
-  };
+  ];
 
-  const spotsLeft = session.maxParticipants - session.participants;
-  const isNearlyFull = spotsLeft <= 3;
-  const progressPercentage = (session.participants / session.maxParticipants) * 100;
+  const pastSessions = [
+    {
+      id: 101,
+      title: 'Plastic-Free Shopping Tips',
+      instructor: 'Emma Sustainable',
+      date: 'Oct 25, 2025',
+      attendees: 234,
+      rating: 4.8,
+      tags: ['#shopping', '#plastic-free', '#sustainable'],
+      description: 'Expert tips on shopping without creating plastic waste.',
+      reviews: 156
+    },
+    {
+      id: 102,
+      title: 'Carbon Footprint Calculation',
+      instructor: 'Tom Adventure',
+      date: 'Oct 20, 2025',
+      attendees: 456,
+      rating: 4.7,
+      tags: ['#carbon', '#footprint', '#climate'],
+      description: 'Calculate and reduce your personal carbon footprint.',
+      reviews: 289
+    },
+    {
+      id: 103,
+      title: 'Community Action Building',
+      instructor: 'Sophia Vegan',
+      date: 'Oct 15, 2025',
+      attendees: 567,
+      rating: 4.9,
+      tags: ['#community', '#action', '#impact'],
+      description: 'Learn to organize and lead environmental action in your community.',
+      reviews: 312
+    }
+  ];
 
-  const cardStyle = {
-    ...styles.card,
-    background: categoryColors[session.category] || categoryColors["Meditation"],
-    ...(isHovered ? styles.cardHover : {})
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      style={cardStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Header with image and badges */}
-      <div style={styles.imageContainer}>
-        <motion.img
-          src={session.image}
-          alt={session.title}
-          style={styles.image}
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-        />
-        <div style={styles.imageOverlay}></div>
-
-        {/* Category badge */}
-        <motion.div
-          style={styles.categoryBadge}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <SparklesIcon />
-          {session.category}
-        </motion.div>
-
-        {/* Difficulty indicator */}
-        <motion.div
-          style={styles.difficultyBadge}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <span style={{fontSize: '0.875rem'}}>{getDifficultyIcon(session.difficulty)}</span>
-          {session.difficulty}
-        </motion.div>
-
-        {/* Nearly full indicator */}
-        {isNearlyFull && (
-          <motion.div
-            style={styles.urgencyBadge}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            ⚡ {spotsLeft} spots left
-          </motion.div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div style={styles.cardContent}>
-        {/* Title and instructor */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <h3 style={styles.cardTitle}>
-            {session.title}
-          </h3>
-          <p style={styles.cardDescription}>
-            {session.description}
-          </p>
-          <p style={styles.instructor}>
-            with {session.instructor}
-          </p>
-        </motion.div>
-
-        {/* Session details grid */}
-        <motion.div
-          style={styles.detailsGrid}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <div style={styles.detail}>
-            <CalendarIcon />
-            <span>{session.date}</span>
-          </div>
-          <div style={styles.detail}>
-            <ClockIcon />
-            <span>{session.time}</span>
-          </div>
-          <div style={styles.detail}>
-            <LocationIcon />
-            <span>{session.location}</span>
-          </div>
-          <div style={styles.detail}>
-            <UsersIcon />
-            <span>{session.participants}/{session.maxParticipants}</span>
-          </div>
-        </motion.div>
-
-        {/* Progress bar */}
-        <motion.div
-          style={styles.progressContainer}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <div style={styles.progressLabel}>
-            <span style={{color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem'}}>Participants</span>
-            <span style={{color: 'rgba(255, 255, 255, 0.7)', fontWeight: '500', fontSize: '0.75rem'}}>
-              {Math.round(progressPercentage)}% full
-            </span>
-          </div>
-          <div style={styles.progressBar}>
-            <motion.div
-              style={{...styles.progressFill, width: `${progressPercentage}%`}}
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPercentage}%` }}
-              transition={{ duration: 1, delay: 0.6 }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Action button */}
-        <motion.button
-          style={{
-            ...styles.button,
-            ...(isHovered ? styles.buttonHover : {})
-          }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          {spotsLeft > 0 ? 'Join Session' : 'Join Waitlist'}
-        </motion.button>
-      </div>
-    </motion.div>
+  const filteredUpcoming = upcomingSessions.filter(session =>
+    session.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    session.instructor.toLowerCase().includes(searchTerm.toLowerCase())
   );
-}
 
-// Loading skeleton component
-function SessionSkeleton({ index }) {
+  const filteredPast = pastSessions.filter(session =>
+    session.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    session.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const getCapacityColor = (registered, capacity) => {
+    const percentage = (registered / capacity) * 100;
+    if (percentage >= 90) return '#ef4444';
+    if (percentage >= 70) return '#f97316';
+    return '#10b981';
+  };
+
   return (
-    <motion.div
-      style={styles.skeleton}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-    >
-      <div style={styles.skeletonImage}></div>
-      <div style={styles.skeletonContent}>
-        <div style={{...styles.skeletonBar, width: '75%'}}></div>
-        <div style={styles.skeletonBar}></div>
-        <div style={{...styles.skeletonBar, width: '60%'}}></div>
-        <div style={styles.detailsGrid}>
-          {[...Array(4)].map((_, i) => (
-            <div key={i} style={{...styles.skeletonBar, height: '1rem'}}></div>
+    <div className="sessions-enhanced">
+      {/* Header */}
+      <motion.div
+        className="sessions-header"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="header-content">
+          <h1>🌱 Learning Sessions</h1>
+          <p>Educational workshops on sustainability and eco-living</p>
+        </div>
+      </motion.div>
+
+      <div className="sessions-container">
+        {/* Search Bar */}
+        <motion.div
+          className="sessions-search"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <input
+            type="text"
+            placeholder="Search sessions, instructors..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+        </motion.div>
+
+        {/* Tabs */}
+        <motion.div
+          className="sessions-tabs"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+        >
+          <button
+            className={`tab-button ${activeTab === 'upcoming' ? 'active' : ''}`}
+            onClick={() => setActiveTab('upcoming')}
+          >
+            📅 Upcoming Sessions
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'past' ? 'active' : ''}`}
+            onClick={() => setActiveTab('past')}
+          >
+            ✅ Past Sessions
+          </button>
+        </motion.div>
+
+        {/* Sessions Grid */}
+        <div className="sessions-grid">
+          {activeTab === 'upcoming' && filteredUpcoming.map((session, idx) => (
+            <motion.div
+              key={session.id}
+              className="session-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05 }}
+              whileHover={{ y: -8 }}
+            >
+              {/* Status Badge */}
+              <div className="session-badges">
+                {session.registered >= session.capacity * 0.9 && (
+                  <motion.span className="badge badge-urgent">
+                    <Zap size={14} /> Almost Full
+                  </motion.span>
+                )}
+                <span className="badge badge-level">{session.level}</span>
+              </div>
+
+              {/* Session Header */}
+              <div className="session-header-content">
+                <h3>{session.title}</h3>
+                <p className="instructor">👨‍🏫 {session.instructor}</p>
+              </div>
+
+              {/* Description */}
+              <p className="session-description">{session.description}</p>
+
+              {/* Session Details */}
+              <div className="session-details">
+                <div className="detail-item">
+                  <Calendar size={16} />
+                  <span>{session.date}</span>
+                </div>
+                <div className="detail-item">
+                  <Clock size={16} />
+                  <span>{session.time}</span>
+                </div>
+                <div className="detail-item">
+                  <MapPin size={16} />
+                  <span>{session.platform}</span>
+                </div>
+                <div className="detail-item">
+                  <Users size={16} />
+                  <span>{session.category}</span>
+                </div>
+              </div>
+
+              {/* Capacity Bar */}
+              <div className="capacity-section">
+                <div className="capacity-label">
+                  <span>Registered</span>
+                  <span>{session.registered}/{session.capacity}</span>
+                </div>
+                <div className="capacity-bar">
+                  <motion.div
+                    className="capacity-fill"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(session.registered / session.capacity) * 100}%` }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                    style={{
+                      background: getCapacityColor(session.registered, session.capacity)
+                    }}
+                  />
+                </div>
+                <span className="capacity-text">
+                  {session.capacity - session.registered} spots available
+                </span>
+              </div>
+
+              {/* Tags */}
+              <div className="session-tags">
+                {session.tags.map((tag, i) => (
+                  <a key={i} href={`?search=${tag}`} className="tag">
+                    {tag}
+                  </a>
+                ))}
+              </div>
+
+              {/* Action Button */}
+              <motion.button
+                className="btn-register"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Register Now
+              </motion.button>
+            </motion.div>
+          ))}
+
+          {activeTab === 'past' && filteredPast.map((session, idx) => (
+            <motion.div
+              key={session.id}
+              className="session-card past-session"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05 }}
+              whileHover={{ y: -8 }}
+            >
+              {/* Status Badge */}
+              <div className="session-badges">
+                <span className="badge badge-completed">
+                  <CheckCircle size={14} /> Completed
+                </span>
+              </div>
+
+              {/* Session Header */}
+              <div className="session-header-content">
+                <h3>{session.title}</h3>
+                <p className="instructor">👨‍🏫 {session.instructor}</p>
+              </div>
+
+              {/* Description */}
+              <p className="session-description">{session.description}</p>
+
+              {/* Session Info */}
+              <div className="past-session-info">
+                <div className="info-item">
+                  <span className="label">Held on</span>
+                  <span className="value">{session.date}</span>
+                </div>
+                <div className="info-item">
+                  <span className="label">Attendees</span>
+                  <span className="value">{session.attendees} people</span>
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="session-rating">
+                <div className="rating-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      fill={i < Math.floor(session.rating) ? '#fbbf24' : '#d1d5db'}
+                      color={i < Math.floor(session.rating) ? '#fbbf24' : '#d1d5db'}
+                    />
+                  ))}
+                  <span className="rating-value">{session.rating}</span>
+                </div>
+                <span className="review-count">({session.reviews} reviews)</span>
+              </div>
+
+              {/* Tags */}
+              <div className="session-tags">
+                {session.tags.map((tag, i) => (
+                  <a key={i} href={`?search=${tag}`} className="tag">
+                    {tag}
+                  </a>
+                ))}
+              </div>
+
+              {/* Action Button */}
+              <motion.button
+                className="btn-watch"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Watch Recording
+              </motion.button>
+            </motion.div>
           ))}
         </div>
-        <div style={{...styles.skeletonBar, height: '0.5rem'}}></div>
-        <div style={{...styles.skeletonBar, height: '3rem'}}></div>
-      </div>
-    </motion.div>
-  );
-}
 
-// Main Sessions component
-export default function Sessions() {
-  const [sessions, setSessions] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const resp = await mockApi.get("/api/community/sessions/");
-        setSessions(resp.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: cssAnimations }} />
-      <div style={styles.container}>
-        {/* Animated background effects */}
+        {/* Benefits Section */}
         <motion.div
-          style={styles.backgroundOrb1}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          style={styles.backgroundOrb2}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.6, 0.3, 0.6]
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-        <motion.div
-          style={styles.backgroundOrb3}
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 15, repeat: Infinity }}
-        />
-
-        <div style={styles.content}>
-          {/* Header Section */}
-          <motion.div
-            style={styles.header}
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          className="benefits-section"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h2>Why Join Our Sessions?</h2>
+          <div className="benefits-grid">
             <motion.div
-              style={styles.badge}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              className="benefit-card"
+              whileHover={{ y: -5 }}
             >
-              <HeartIcon />
-              <span>Wellness & Mindfulness</span>
+              <div className="benefit-icon">🎓</div>
+              <h3>Learn from Experts</h3>
+              <p>Get insights from environmental leaders and sustainability experts.</p>
             </motion.div>
-
-            <motion.h1
-              style={styles.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              Wellness Sessions
-            </motion.h1>
-
-            <motion.p
-              style={styles.subtitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Join our curated wellness sessions designed to nurture your mind, body, and spirit.
-              From meditation to yoga, discover practices that promote healing and inner peace.
-            </motion.p>
-
-            {/* Stats */}
             <motion.div
-              style={styles.statsContainer}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              className="benefit-card"
+              whileHover={{ y: -5 }}
             >
-              <div style={styles.stat}>
-                <motion.div
-                  style={{...styles.statNumber, color: '#10b981'}}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                >
-                  {sessions.length}
-                </motion.div>
-                <div style={styles.statLabel}>Sessions Available</div>
-              </div>
-              <div style={styles.stat}>
-                <motion.div
-                  style={{...styles.statNumber, color: '#0891b2'}}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                  {sessions.reduce((total, s) => total + s.participants, 0)}
-                </motion.div>
-                <div style={styles.statLabel}>Active Participants</div>
-              </div>
-              <div style={styles.stat}>
-                <motion.div
-                  style={{...styles.statNumber, color: '#8b5cf6'}}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                >
-                  4+
-                </motion.div>
-                <div style={styles.statLabel}>Wellness Categories</div>
-              </div>
+              <div className="benefit-icon">🤝</div>
+              <h3>Connect with Others</h3>
+              <p>Network with like-minded individuals passionate about sustainability.</p>
             </motion.div>
-          </motion.div>
-
-          {/* Sessions Grid */}
-          <div style={styles.grid}>
-            <AnimatePresence>
-              {loading ? (
-                // Loading skeletons
-                [...Array(4)].map((_, i) => <SessionSkeleton key={i} index={i} />)
-              ) : sessions.length === 0 ? (
-                // Empty state
-                <motion.div
-                  style={styles.emptyState}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <div style={styles.emptyIcon}>
-                    <span style={{fontSize: '2.5rem'}}>📅</span>
-                  </div>
-                  <h3 style={styles.emptyTitle}>No Sessions Scheduled</h3>
-                  <p style={styles.emptyDescription}>
-                    We're preparing amazing wellness sessions for you. Check back soon for updates!
-                  </p>
-                  <motion.button
-                    style={styles.button}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Get Notified
-                  </motion.button>
-                </motion.div>
-              ) : (
-                // Sessions list
-                sessions.map((session, index) => (
-                  <SessionCard key={session.id} session={session} index={index} />
-                ))
-              )}
-            </AnimatePresence>
+            <motion.div
+              className="benefit-card"
+              whileHover={{ y: -5 }}
+            >
+              <div className="benefit-icon">🏆</div>
+              <h3>Earn Certificates</h3>
+              <p>Complete sessions and earn certificates to showcase your knowledge.</p>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default Sessions;
