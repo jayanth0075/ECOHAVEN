@@ -63,28 +63,37 @@ def register_user(request):
 @permission_classes([AllowAny])
 def login_user(request):
     try:
-        data = request.data  # ← CHANGE THIS
+        data = request.data
         email = data.get('email')
+        username = data.get('username')
         password = data.get('password')
 
-        # Authenticate user
-        user = authenticate(username=email, password=password)
+        # Use email if provided, otherwise username
+        login_identifier = email if email else username
+        
+        print(f"Login attempt - identifier: {login_identifier}, has_password: {bool(password)}")
+
+        # Authenticate (our custom backend will handle email or username)
+        user = authenticate(request, username=login_identifier, password=password)
+        print(f"Authentication result: {user}")
 
         if user:
             # Generate tokens
             refresh = RefreshToken.for_user(user)
 
-            # Update last activity
-            profile = UserProfile.objects.get(user=user)
-            profile.last_activity = timezone.now()  # ← NOW THIS WILL WORK
-            profile.save()
+            # Update last activity if profile exists
+            try:
+                profile = UserProfile.objects.get(user=user)
+                profile.last_activity = timezone.now()  # ← NOW THIS WILL WORK
+                profile.save()
+            except UserProfile.DoesNotExist:
+                # Create profile if it doesn't exist
+                UserProfile.objects.create(user=user)
 
             return Response({
                 'message': 'Login successful',
-                'tokens': {
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                },
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
                 'user': UserSerializer(user).data
             }, status=status.HTTP_200_OK)
         else:

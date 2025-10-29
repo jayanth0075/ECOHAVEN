@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
+# Configure PyMySQL to replace MySQLdb
+import pymysql
+pymysql.install_as_MySQLdb()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
 
 # authentications settings
 AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',  # Custom email authentication
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -126,9 +131,17 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+    "http://localhost:5000",
+    "http://127.0.0.1:5000",
+    "http://10.231.31.164:5000",
+    "http://localhost:64461",
+    "http://127.0.0.1:64461",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # For development only
 
 # Media Files
 MEDIA_URL = '/media/'
