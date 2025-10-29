@@ -4,7 +4,6 @@
 
 EcoHaven addresses the growing need for a dedicated platform where young people can learn, share, and take action towards sustainable living. With climate change being one of the biggest challenges of our generation, we created a space that makes eco-friendly living accessible, engaging, and community-driven.
 
- What?
 
 ## Git LFS and ignored files
 
@@ -57,7 +56,9 @@ EcoHaven is a community-driven platform focused on wellness and eco-friendly liv
 - User verification badges
 
 Created by:
-
+A.JAYANTH
+NANNA ABHIRAM
+LASYA NERELLA
 ---
 
 Building a sustainable future, one line of code at a time 🌱
