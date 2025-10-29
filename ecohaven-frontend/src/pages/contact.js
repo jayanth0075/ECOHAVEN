@@ -28,7 +28,7 @@ const Contact = () => {
 
     try {
       // TODO: Replace with actual API endpoint
-      const response = await fetch('/api/contact/', {
+      const response = await fetch('http://localhost:8000/api/community/contact/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

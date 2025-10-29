@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Heart, MessageCircle, Share2, Bookmark, MoreVertical, 
-  Send, MapPin, Calendar, Users, ArrowLeft 
+  Send, MapPin, ArrowLeft 
 } from 'lucide-react';
 import '../styles/post-detail.css';
 

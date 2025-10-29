@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     // Check if a token exists in localStorage on initial render
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       setIsLoggedIn(true);
     }
@@ -28,7 +28,8 @@ function App() {
 
   const handleLogout = () => {
     // Remove the token and update the login state
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setIsLoggedIn(false);
     // Redirect to the home page or login page
     window.location.href = '/';

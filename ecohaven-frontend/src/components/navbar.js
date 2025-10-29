@@ -7,7 +7,6 @@ const Navbar = ({ isLoggedIn, onLogout, userName = "User", userAvatar = null }) 
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(true);
-    const [notificationCount, setNotificationCount] = useState(0);
     const dropdownRef = useRef(null);
     const location = useLocation();
 

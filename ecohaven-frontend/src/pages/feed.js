@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, MessageCircle, Share2, Clock, Tag, Search, Filter, TrendingUp } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Clock, Search, Filter, TrendingUp } from 'lucide-react';
 import '../styles/feed.css';
 
 const Feed = () => {
