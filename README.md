@@ -56,9 +56,10 @@ EcoHaven is a community-driven platform focused on wellness and eco-friendly liv
 - User verification badges
 
 Created by:
-A.JAYANTH
-NANNA ABHIRAM
-LASYA NERELLA
+Jayanth
+Divij
+Laasya
+Kiran Kumbhar
 ---
 
 Building a sustainable future, one line of code at a time 🌱

@@ -11,7 +11,7 @@ const Sessions = () => {
     {
       id: 1,
       title: 'Zero Waste Living 101',
-      instructor: 'Sarah Green',
+      instructor: 'Jayanth',
       date: 'Oct 30, 2025',
       time: '7:00 PM',
       duration: '2 hours',
@@ -27,7 +27,7 @@ const Sessions = () => {
     {
       id: 2,
       title: 'Urban Gardening Masterclass',
-      instructor: 'Mike Eco',
+      instructor: 'Divij',
       date: 'Nov 2, 2025',
       time: '6:00 PM',
       duration: '2.5 hours',
@@ -110,7 +110,7 @@ const Sessions = () => {
     {
       id: 101,
       title: 'Plastic-Free Shopping Tips',
-      instructor: 'Emma Sustainable',
+      instructor: 'Laasya',
       date: 'Oct 25, 2025',
       attendees: 234,
       rating: 4.8,

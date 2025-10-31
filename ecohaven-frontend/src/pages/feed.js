@@ -12,7 +12,7 @@ const Feed = () => {
   const samplePosts = [
     {
       id: 1,
-      author: 'Sarah Green',
+      author: 'Jayanth',
       avatar: '👩‍🌾',
       title: 'Just switched to bamboo toothbrushes!',
       excerpt: 'Small step but it feels great knowing my oral hygiene isn\'t harming marine life.',
@@ -27,7 +27,7 @@ const Feed = () => {
     },
     {
       id: 2,
-      author: 'Mike Eco',
+      author: 'Divij',
       avatar: '🧑‍🌿',
       title: 'My first harvest from the rooftop garden!',
       excerpt: 'Grew tomatoes, lettuce, and herbs in just 8 weeks. Urban farming is the future!',
@@ -42,7 +42,7 @@ const Feed = () => {
     },
     {
       id: 3,
-      author: 'Emma Sustainable',
+      author: 'Laasya',
       avatar: '👩‍💼',
       title: 'Organized a community cleanup drive',
       excerpt: 'Our neighborhood collected 2 tons of plastic waste in just 3 hours. Community power! 💪',
@@ -102,7 +102,7 @@ const Feed = () => {
     },
     {
       id: 7,
-      author: 'Lisa Eco',
+      author: 'Kiran Kumbhar',
       avatar: '👩‍🔬',
       title: 'Researching ocean plastic solutions',
       excerpt: 'Our lab just developed a new plastic degradation enzyme. Game changer!',
@@ -380,9 +380,9 @@ const Feed = () => {
             <h3>👥 Top Contributors</h3>
             <div className="contributors-list">
               {[
-                { name: 'Lisa Eco', posts: 156, impact: '12K' },
-                { name: 'Mike Eco', posts: 143, impact: '9.5K' },
-                { name: 'Emma Sustainable', posts: 128, impact: '8.7K' }
+                { name: 'Kiran Kumbhar', posts: 156, impact: '12K' },
+                { name: 'Divij', posts: 143, impact: '9.5K' },
+                { name: 'Laasya', posts: 128, impact: '8.7K' }
               ].map((contributor, idx) => (
                 <div key={idx} className="contributor-item">
                   <div className="contributor-info">
