@@ -57,9 +57,7 @@ EcoHaven is a community-driven platform focused on wellness and eco-friendly liv
 
 Created by:
 Jayanth
-Divij
 Laasya
-Kiran Kumbhar
 ---
 
 Building a sustainable future, one line of code at a time 🌱
