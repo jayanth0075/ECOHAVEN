@@ -17,7 +17,8 @@ const Sessions = () => {
       duration: '2 hours',
       level: 'Beginner',
       category: 'Lifestyle',
-      platform: 'Zoom',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 42,
       capacity: 50,
       tags: ['#zerowaste', '#sustainable', '#lifestyle'],
@@ -32,7 +33,8 @@ const Sessions = () => {
       duration: '2.5 hours',
       level: 'Intermediate',
       category: 'Gardening',
-      platform: 'Microsoft Teams',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 87,
       capacity: 100,
       tags: ['#gardening', '#urban', '#growing'],
@@ -47,7 +49,8 @@ const Sessions = () => {
       duration: '3 hours',
       level: 'Advanced',
       category: 'Renewable Energy',
-      platform: 'YouTube Live',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 342,
       capacity: 500,
       tags: ['#solar', '#renewable', '#energy'],
@@ -62,7 +65,8 @@ const Sessions = () => {
       duration: '1.5 hours',
       level: 'Beginner',
       category: 'Fashion',
-      platform: 'Zoom',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 38,
       capacity: 40,
       tags: ['#fashion', '#sustainable', '#eco'],
@@ -77,7 +81,8 @@ const Sessions = () => {
       duration: '1.5 hours',
       level: 'Beginner',
       category: 'Waste Management',
-      platform: 'Zoom',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 45,
       capacity: 60,
       tags: ['#composting', '#organic', '#waste'],
@@ -92,7 +97,8 @@ const Sessions = () => {
       duration: '2 hours',
       level: 'All Levels',
       category: 'Conservation',
-      platform: 'YouTube Live',
+      platform: 'Google Meet',
+      meetLink: 'https://meet.google.com/yki-nncz-awh',
       registered: 756,
       capacity: 1000,
       tags: ['#ocean', '#conservation', '#marine'],
@@ -286,14 +292,26 @@ const Sessions = () => {
                 ))}
               </div>
 
-              {/* Action Button */}
-              <motion.button
-                className="btn-register"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Register Now
-              </motion.button>
+              {/* Action Buttons */}
+              <div className="session-actions">
+                <motion.button
+                  className="btn-register"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Register Now
+                </motion.button>
+                <motion.a
+                  href={session.meetLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-join-meeting"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  🎥 Join Meeting
+                </motion.a>
+              </div>
             </motion.div>
           ))}
 

@@ -288,6 +288,57 @@
   transform: translateY(0);
 }
 
+/* Session Actions */
+.session-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.session-actions button,
+.session-actions a {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.btn-register {
+  background: linear-gradient(135deg, #10b981, #0891b2);
+  color: white;
+}
+
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-join-meeting {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  color: white;
+}
+
+.btn-join-meeting:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn-join-meeting:active,
+.btn-register:active {
+  transform: translateY(0);
+}
+
 /* Past Session Specific */
 .past-session {
   border-left: 4px solid #10b981;
