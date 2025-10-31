@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Leaf, Users, Award, TrendingUp, Mail, MapPin, Phone, ArrowRight, Zap, Globe, Heart } from 'lucide-react';
+import { Leaf, Users, Award, TrendingUp, Mail, MapPin, Phone, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import '../styles/landing.css';
 
@@ -43,117 +43,258 @@ const Landing = () => {
 
   return (
     <div className="landing-page">
-      {/* Hero Section */}
-      <section className="hero-section">
+      {/* Hero Section - Premium Design */}
+      <section className="hero-section hero-premium">
+        {/* Animated Background Elements */}
         <div className="hero-background">
+          {/* Gradient Orbs */}
           <motion.div
             className="gradient-orb gradient-orb-1"
             animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
+              x: [0, 80, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.2, 1],
             }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
             className="gradient-orb gradient-orb-2"
             animate={{
-              x: [0, -50, 0],
-              y: [0, -40, 0],
+              x: [0, -60, 0],
+              y: [0, -60, 0],
+              scale: [1, 0.9, 1],
             }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           />
+          <motion.div
+            className="gradient-orb gradient-orb-3"
+            animate={{
+              x: [0, 40, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          />
+          
+          {/* Grid Pattern */}
+          <div className="grid-pattern" />
+          
+          {/* Floating Particles */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="particle"
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 6 + i,
+                repeat: Infinity,
+                delay: i * 0.5,
+              }}
+              style={{
+                left: `${15 + i * 15}%`,
+                top: `${20 + i * 10}%`,
+              }}
+            />
+          ))}
         </div>
 
-        <div className="hero-content">
-          <div className="hero-text">
-            <motion.h1
-              className="hero-title"
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              🌱 EcoHaven
-            </motion.h1>
-
-            <motion.p
-              className="hero-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              Join the Green Revolution
-            </motion.p>
-
-            <motion.p
-              className="hero-description"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Build a Sustainable Future Together - Connect with a passionate community of eco-warriors, 
-              share sustainable practices, and make a real impact on our planet.
-            </motion.p>
-
+        <div className="hero-content hero-content-premium">
+          {/* Left Side - Text */}
+          <motion.div
+            className="hero-text-side"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {/* Badge */}
             <motion.div
-              className="hero-buttons"
-              initial={{ opacity: 0, y: 20 }}
+              className="hero-badge"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span>🌍 Trusted by 10K+ Eco-Warriors</span>
+            </motion.div>
+
+            <motion.h1
+              className="hero-title-premium"
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/register" className="btn btn-primary">
-                  Get Started Today
+              <span className="title-main">Build a</span>
+              <span className="title-highlight">Sustainable Future</span>
+              <span className="title-main">Together</span>
+            </motion.h1>
+
+            <motion.p
+              className="hero-subtitle-premium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Join millions of eco-conscious individuals making real impact on climate change. Share sustainable practices, earn eco-points, and connect with a global green community.
+            </motion.p>
+
+            {/* Features List */}
+            <motion.div
+              className="hero-features"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <div className="feature-item">
+                <Leaf size={20} />
+                <span>Earn Eco-Points</span>
+              </div>
+              <div className="feature-item">
+                <Users size={20} />
+                <span>Join Community</span>
+              </div>
+              <div className="feature-item">
+                <Globe size={20} />
+                <span>Track Impact</span>
+              </div>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              className="hero-buttons-premium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <motion.div
+                className="btn-wrapper"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/register" className="btn btn-primary btn-premium">
+                  Start Your Journey
                   <motion.span
-                    animate={{ x: [0, 5, 0] }}
+                    animate={{ x: [0, 8, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
                     →
                   </motion.span>
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/login" className="btn btn-secondary">
+              <motion.div
+                className="btn-wrapper"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/login" className="btn btn-secondary btn-premium">
                   Sign In
                 </Link>
               </motion.div>
             </motion.div>
-          </div>
 
-          <div className="hero-image">
+            {/* Social Proof */}
             <motion.div
-              className="floating-shapes"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
+              className="hero-social-proof"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
             >
+              <div className="proof-item">
+                <span className="proof-number">50K+</span>
+                <span className="proof-label">Posts Shared</span>
+              </div>
+              <div className="proof-divider" />
+              <div className="proof-item">
+                <span className="proof-number">500+</span>
+                <span className="proof-label">Challenges</span>
+              </div>
+              <div className="proof-divider" />
+              <div className="proof-item">
+                <span className="proof-number">10K+</span>
+                <span className="proof-label">Members</span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Side - Visual Elements */}
+          <motion.div
+            className="hero-visual-side"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="hero-visual-container">
+              {/* Main Decorative Card */}
               <motion.div
-                className="shape shape-1"
-                variants={floatingVariants}
-                initial="initial"
-                animate="animate"
+                className="visual-card visual-card-main"
+                animate={{
+                  y: [0, -20, 0],
+                  rotateZ: [-2, 2, -2],
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               >
-                🌍
+                <div className="card-content">
+                  <div className="card-icon icon-1">🌱</div>
+                  <h3>Eco-Friendly Living</h3>
+                  <p>Tips & Tricks</p>
+                </div>
               </motion.div>
+
+              {/* Secondary Cards */}
               <motion.div
-                className="shape shape-2"
-                variants={floatingVariants}
-                initial="initial"
-                animate="animate"
-                transition={{ duration: 4, delay: 0.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="visual-card visual-card-secondary"
+                animate={{
+                  y: [0, -15, 0],
+                  rotateZ: [3, -3, 3],
+                }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              >
+                <div className="card-content">
+                  <div className="card-icon icon-2">🌍</div>
+                  <h3>Global Impact</h3>
+                  <p>Join Challenges</p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="visual-card visual-card-tertiary"
+                animate={{
+                  y: [0, -18, 0],
+                  rotateZ: [-2, 2, -2],
+                }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              >
+                <div className="card-content">
+                  <div className="card-icon icon-3">♻️</div>
+                  <h3>Track Progress</h3>
+                  <p>Earn Eco-Score</p>
+                </div>
+              </motion.div>
+
+              {/* Floating Emojis */}
+              <motion.div
+                className="floating-emoji emoji-1"
+                animate={{ y: [-30, 30, -30], x: [-20, 20, -20] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'sine' }}
               >
                 🌿
               </motion.div>
               <motion.div
-                className="shape shape-3"
-                variants={floatingVariants}
-                initial="initial"
-                animate="animate"
-                transition={{ duration: 4, delay: 1, repeat: Infinity, ease: 'easeInOut' }}
+                className="floating-emoji emoji-2"
+                animate={{ y: [20, -20, 20], x: [20, -20, 20] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'sine', delay: 1 }}
               >
-                ♻️
+                🌳
               </motion.div>
-            </motion.div>
-          </div>
+              <motion.div
+                className="floating-emoji emoji-3"
+                animate={{ y: [-20, 20, -20] }}
+                transition={{ duration: 9, repeat: Infinity, ease: 'sine', delay: 2 }}
+              >
+                🌞
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
