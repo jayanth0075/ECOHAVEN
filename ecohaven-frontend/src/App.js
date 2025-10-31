@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
+import api from './services/api';
 
 // Import components with lowercase filenames
 import Navbar from "./components/navbar";
@@ -10,10 +11,13 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
+import RequireAuth from './components/RequireAuth';
 import Sessions from "./pages/sessions";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Features from "./pages/features";
+import Challenges from "./pages/challenges";
+import Brand from "./pages/brand";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +26,12 @@ function App() {
     // Check if a token exists in localStorage on initial render
     const token = localStorage.getItem('accessToken');
     if (token) {
+      // Ensure api instance is using the saved token for all requests
+      try {
+        api.setAuthToken(token);
+      } catch (e) {
+        // ignore
+      }
       setIsLoggedIn(true);
     }
   }, []);
@@ -52,8 +62,10 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/sessions" element={<Sessions />} />
+          <Route path="/challenges" element={<Challenges />} />
+          <Route path="/brands/:brandId" element={<Brand />} />
         </Routes>
       </motion.main>
       <Footer />

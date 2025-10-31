@@ -197,6 +197,7 @@ const Feed = () => {
       </motion.div>
 
       <div className="feed-container">
+        <div className="feed-container-inner">
         {/* Main Feed */}
         <main className="feed-main">
           {/* Search and Filter */}
@@ -259,7 +260,8 @@ const Feed = () => {
                     alt={post.title}
                     className="post-image"
                     onError={(e) => {
-                      e.target.style.display = 'none';
+                      e.target.onerror = null;
+                      e.target.src = 'https://via.placeholder.com/800x450?text=EcoHaven+Image';
                     }}
                   />
                   <div className="post-content-feed">
@@ -332,10 +334,10 @@ const Feed = () => {
               <p>No posts found. Try adjusting your filters or search terms.</p>
             </motion.div>
           )}
-        </main>
+  </main>
 
-        {/* Sidebar */}
-        <aside className="feed-sidebar">
+  {/* Sidebar */}
+  <aside className="feed-sidebar">
           {/* Create Post */}
           <motion.div
             className="create-post-card"
@@ -419,6 +421,7 @@ const Feed = () => {
             </div>
           </motion.div>
         </aside>
+        </div>
       </div>
     </div>
   );

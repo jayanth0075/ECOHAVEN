@@ -2,16 +2,37 @@
 
 .feed-enhanced {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #164e63 50%, #1e293b 75%, #0f172a 100%);
+  background-attachment: fixed;
   padding: 2rem 1rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.feed-enhanced::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .feed-header {
   text-align: center;
   margin-bottom: 3rem;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(8, 145, 178, 0.15) 100%);
   border-radius: 1rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
 }
 
 .header-content h1 {
@@ -109,13 +130,16 @@
 }
 
 .post-card {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
   position: relative;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .post-card::before {
@@ -124,16 +148,17 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, #10b981, #0891b2, #8b5cf6);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .post-card:hover {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(148, 163, 184, 0.4);
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%);
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 12px 48px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
 }
 
 .post-card:hover::before {
@@ -196,26 +221,28 @@
 /* Post Body */
 .post-body-feed {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
   align-items: flex-start;
 }
 
 .post-image {
-  width: 220px;
-  height: 160px;
+  width: 280px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   flex-shrink: 0;
-  border: 3px solid rgba(16, 185, 129, 0.2);
+  border: 4px solid rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(8, 145, 178, 0.1));
 }
 
 .post-image:hover {
-  transform: scale(1.08) translateY(-8px);
-  box-shadow: 0 16px 48px rgba(16, 185, 129, 0.5);
-  border-color: rgba(16, 185, 129, 0.8);
+  transform: scale(1.12) translateY(-12px) rotate(2deg);
+  box-shadow: 0 24px 64px rgba(16, 185, 129, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(16, 185, 129, 1);
+  filter: brightness(1.1);
 }
 
 .post-emoji {
@@ -225,17 +252,22 @@
 }
 
 .post-content-feed h3 {
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: white;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .post-content-feed p {
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.6;
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.8;
+  font-size: 0.98rem;
+  font-weight: 500;
 }
 
 /* Tags */

@@ -1,234 +1,74 @@
-/* CSS Custom Properties for better maintainability */
+/* Redesigned feed styles - modern, glassmorphism, responsive grid, prominent images */
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --eco-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  --text-primary: #2d3748;
-  --text-secondary: #4a5568;
-  --text-muted: #718096;
-  --success-color: #48bb78;
-  --warning-color: #ed8936;
-  --danger-color: #f56565;
-  --border-color: #e2e8f0;
-  --white-translucent: rgba(255, 255, 255, 0.95);
-  --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 15px 40px rgba(0, 0, 0, 0.15);
-  --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.3);
-  --border-radius: 12px;
-  --border-radius-large: 20px;
-  --transition-fast: 0.3s ease;
-  --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --primary-600: #10b981;
+  --secondary-400: #0891b2;
+  --primary-gradient: linear-gradient(135deg, #0ea5a2 0%, #10b981 100%);
+  --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+  --bg-gradient: linear-gradient(180deg, #eef2f7 0%, #dbe7f3 100%);
+  --card-bg: rgba(255,255,255,0.9);
+  --text-primary: #0f172a;
+  --muted: #64748b;
+  --border-color: rgba(15,23,42,0.06);
+  --shadow-soft: 0 8px 30px rgba(2,6,23,0.06);
+  --shadow-strong: 0 20px 50px rgba(2,6,23,0.12);
+  --radius: 14px;
+  --radius-lg: 20px;
+  --transition: 300ms cubic-bezier(.34,1.56,.64,1);
+  --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
 }
 
-/* Base styles */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-.feed-container {
-  min-height: 100vh;
-  background: var(--bg-gradient);
-  font-family: var(--font-family);
-}
+.feed-container { min-height: 100vh; background: radial-gradient(circle at 10% 10%, rgba(16,185,129,0.03), transparent 8%), var(--bg-gradient); font-family: var(--font-family); color: var(--text-primary); }
 
-/* Loading state */
-.loading-spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+.feed-header { background: linear-gradient(90deg, rgba(15,23,42,0.9), rgba(30,41,59,0.9)); color: white; padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 120; display:flex; align-items:center; gap:1rem }
+.feed-header h1{ margin:0; font-size:1.2rem; font-weight:800 }
+.feed-header .header-sub { color: rgba(255,255,255,0.9); font-weight:500; margin-left:6px }
 
-.eco-spinner {
-  font-size: 3rem;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  animation: spin 2s linear infinite;
-}
+.feed-container-inner { max-width:1200px; margin:0 auto; padding:2rem; display:grid; grid-template-columns: 1fr 360px; gap:2rem }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+.feed-main{ }
+.search-bar{ display:flex; gap:0.75rem; align-items:center; background:rgba(255,255,255,0.9); padding:0.6rem 0.75rem; border-radius:12px; box-shadow:var(--shadow-soft)}
+.search-bar input{ border: none; outline:none; font-family:inherit; font-size:0.95rem }
 
-/* Header */
-.feed-header {
-  background: var(--white-translucent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px); /* Safari support */
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+.posts-list{ display:grid; grid-template-columns: repeat(2,1fr); gap:1.25rem }
 
-.feed-header h1 {
-  font-size: clamp(1.5rem, 4vw, 2rem); /* Responsive typography */
-  font-weight: 800;
-  color: var(--text-primary);
-  margin: 0;
-}
+.post-card{ background: var(--card-bg); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-soft); transition: transform var(--transition), box-shadow var(--transition); display:flex; flex-direction:column }
+.post-card:hover{ transform: translateY(-8px); box-shadow:var(--shadow-strong) }
 
-/* Buttons */
-.btn {
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  font-family: inherit;
-}
+.post-header{ display:flex; justify-content:space-between; align-items:center; padding:0.9rem 1rem }
+.author-info-feed{ display:flex; gap:0.75rem; align-items:center }
+.avatar-feed{ width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; background: linear-gradient(135deg,var(--primary-600),var(--secondary-400)); }
+.post-meta-feed{ color:var(--muted); font-size:0.9rem; display:flex; align-items:center; gap:0.5rem }
 
-.create-post-btn {
-  background: var(--primary-gradient);
-  color: white;
-  padding: 1rem 2rem;
-  transform: translateY(0);
-}
+.post-body-feed{ display:grid; grid-template-columns: 1fr; gap:0.75rem }
+.post-image{ width:100%; height:220px; object-fit:cover; display:block }
+.post-content-feed{ padding:0 1rem 1rem 1rem }
+.post-content-feed h3{ margin:0 0 0.35rem 0; font-size:1.05rem }
+.post-content-feed p{ margin:0; color:var(--muted) }
 
-.create-post-btn:hover {
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-  transform: translateY(-2px);
-}
+.post-tags-feed{ display:flex; gap:0.5rem; flex-wrap:wrap; padding:0 1rem 0.75rem 1rem }
+.tag-link{ background: rgba(6,183,166,0.06); color:var(--primary-600); padding:0.25rem 0.6rem; border-radius:999px; font-weight:600; font-size:0.85rem; text-decoration:none }
 
-.create-post-btn:active {
-  transform: translateY(0);
-}
+.post-stats-feed, .post-actions-feed{ display:flex; gap:0.75rem; align-items:center; padding:0.75rem 1rem 1rem 1rem; border-top:1px solid rgba(15,23,42,0.04) }
+.action-btn-feed{ background:none; border:none; cursor:pointer; display:inline-flex; gap:0.5rem; align-items:center; padding:0.45rem 0.6rem; border-radius:8px; transition: transform var(--transition), background-color var(--transition); color:var(--muted); font-weight:600 }
+.action-btn-feed:hover{ transform: translateY(-3px); background: rgba(16,185,129,0.06); color:var(--primary-600) }
+.action-btn-feed.liked{ color:var(--primary-600) }
 
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  inset: 0; /* Shorthand for top, right, bottom, left: 0 */
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
-}
+.feed-sidebar .create-post-card, .feed-sidebar .trending-card, .feed-sidebar .contributors-card{ background:rgba(255,255,255,0.9); border-radius:12px; padding:1rem; box-shadow:var(--shadow-soft) }
 
-.create-post-modal {
-  background: white;
-  border-radius: var(--border-radius-large);
-  padding: 2rem;
-  width: min(90%, 600px);
-  box-shadow: var(--shadow-heavy);
-  animation: modalSlideIn 0.3s ease-out;
-}
+.contributors-list{ display:flex; flex-direction:column; gap:0.75rem }
+.contributor-item{ display:flex; justify-content:space-between; align-items:center }
+.impact-badge{ background:linear-gradient(90deg,var(--primary-600),var(--secondary-400)); color:white; padding:0.35rem 0.6rem; border-radius:8px; font-weight:700 }
 
-/* Media Upload Section */
-.media-upload-section {
-  margin: 1rem 0;
-  border: 2px dashed var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  text-align: center;
-  position: relative;
-  transition: all var(--transition-fast);
-}
+/* Responsive */
+@media (max-width:980px){ .feed-container-inner{ grid-template-columns: 1fr 320px } .posts-list{ grid-template-columns: 1fr } .post-image{ height:180px } }
+@media (max-width:560px){ .feed-container-inner{ padding:1rem; grid-template-columns:1fr } .post-image{ height:150px } }
 
-.media-upload-section:hover {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.05);
-}
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{ animation-duration:0.01ms!important; transition-duration:0.01ms!important } }
 
-.media-upload-button {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--primary-gradient);
-  color: white;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-weight: 600;
-  transition: all var(--transition-fast);
-}
-
-.media-upload-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-}
-
-.media-preview {
-  margin-top: 1rem;
-  position: relative;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  background: #f7fafc;
-}
-
-.media-preview-content {
-  width: 100%;
-  max-height: 300px;
-  object-fit: contain;
-  display: block;
-}
-
-.remove-media-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.remove-media-button:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.create-post-modal h3 {
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
-  font-size: 1.5rem;
-}
-
-/* Form elements */
-.form-input {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border-color var(--transition-fast);
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
+/* Dark-mode tweaks */
+@media (prefers-color-scheme: dark){ :root{ --card-bg: rgba(255,255,255,0.03); --text-primary:#e6eef6; --muted:#9fb0c9 } .post-card{ border:1px solid rgba(255,255,255,0.03) } .feed-header{ background: linear-gradient(90deg,#071124,#0b1724) } }
 
 .modal-actions {
   display: flex;

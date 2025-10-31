@@ -33,14 +33,6 @@ const Landing = () => {
     },
   };
 
-  const floatingVariants = {
-    initial: { y: 0 },
-    animate: {
-      y: [-20, 20, -20],
-      transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-    },
-  };
-
   return (
     <div className="landing-page">
       {/* Hero Section - Premium Design */}
@@ -274,21 +266,21 @@ const Landing = () => {
               {/* Floating Emojis */}
               <motion.div
                 className="floating-emoji emoji-1"
-                animate={{ y: [-30, 30, -30], x: [-20, 20, -20] }}
+                animate={{ y: [-30, 30, -30], x: [-20, 20, -20], rotate: [0, 10, 0] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'sine' }}
               >
                 🌿
               </motion.div>
               <motion.div
                 className="floating-emoji emoji-2"
-                animate={{ y: [20, -20, 20], x: [20, -20, 20] }}
+                animate={{ y: [20, -20, 20], x: [20, -20, 20], rotate: [0, -10, 0] }}
                 transition={{ duration: 10, repeat: Infinity, ease: 'sine', delay: 1 }}
               >
                 🌳
               </motion.div>
               <motion.div
                 className="floating-emoji emoji-3"
-                animate={{ y: [-20, 20, -20] }}
+                animate={{ y: [-20, 20, -20], scale: [1, 1.1, 1] }}
                 transition={{ duration: 9, repeat: Infinity, ease: 'sine', delay: 2 }}
               >
                 🌞
@@ -322,13 +314,9 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(16, 185, 129, 0.3)' }}
             >
-              <motion.div
-                className="feature-icon"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              >
+              <div className="feature-icon">
                 <Leaf size={40} />
-              </motion.div>
+              </div>
               <h3>Community Feed</h3>
               <p>Share your eco-friendly tips, news, and ideas with a passionate community of environmentalists and sustainability advocates.</p>
             </motion.div>
@@ -338,13 +326,9 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(139, 92, 246, 0.3)' }}
             >
-              <motion.div
-                className="feature-icon"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear', delay: 0.5 }}
-              >
+              <div className="feature-icon">
                 <Award size={40} />
-              </motion.div>
+              </div>
               <h3>Green Challenges</h3>
               <p>Participate in exciting sustainability challenges, earn eco-points, and track your environmental impact with our scoring system.</p>
             </motion.div>
@@ -354,13 +338,9 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
             >
-              <motion.div
-                className="feature-icon"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear', delay: 1 }}
-              >
+              <div className="feature-icon">
                 <Users size={40} />
-              </motion.div>
+              </div>
               <h3>Community Sessions</h3>
               <p>Join interactive sessions on renewable energy, waste reduction, sustainable agriculture, and environmental conservation.</p>
             </motion.div>
@@ -370,13 +350,9 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(236, 72, 153, 0.3)' }}
             >
-              <motion.div
-                className="feature-icon"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear', delay: 1.5 }}
-              >
+              <div className="feature-icon">
                 <TrendingUp size={40} />
-              </motion.div>
+              </div>
               <h3>Track Progress</h3>
               <p>Monitor your eco-score and see how your sustainable choices contribute to a healthier planet.</p>
             </motion.div>
@@ -411,13 +387,7 @@ const Landing = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <motion.div
-                className="step-number"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-              >
-                1
-              </motion.div>
+              <div className="step-number">1</div>
               <h3>Create Your Profile</h3>
               <p>Sign up and join our eco-conscious community</p>
             </motion.div>
@@ -438,13 +408,7 @@ const Landing = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <motion.div
-                className="step-number"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear', delay: 0.5 }}
-              >
-                2
-              </motion.div>
+              <div className="step-number">2</div>
               <h3>Explore & Share</h3>
               <p>Discover tips and share your sustainability journey</p>
             </motion.div>
@@ -465,13 +429,7 @@ const Landing = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <motion.div
-                className="step-number"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear', delay: 1 }}
-              >
-                3
-              </motion.div>
+              <div className="step-number">3</div>
               <h3>Join Challenges</h3>
               <p>Participate in green challenges and earn eco-points</p>
             </motion.div>
@@ -492,13 +450,7 @@ const Landing = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <motion.div
-                className="step-number"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear', delay: 1.5 }}
-              >
-                4
-              </motion.div>
+              <div className="step-number">4</div>
               <h3>Make Impact</h3>
               <p>Track your progress and help save the planet</p>
             </motion.div>
@@ -521,15 +473,7 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.1, boxShadow: '0 20px 40px rgba(16, 185, 129, 0.4)' }}
             >
-              <motion.div
-                className="stat-number"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 100, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                10K+
-              </motion.div>
+              <div className="stat-number">10K+</div>
               <div className="stat-label">Active Members</div>
             </motion.div>
 
@@ -538,15 +482,7 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.1, boxShadow: '0 20px 40px rgba(139, 92, 246, 0.4)' }}
             >
-              <motion.div
-                className="stat-number"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                500+
-              </motion.div>
+              <div className="stat-number">500+</div>
               <div className="stat-label">Green Challenges</div>
             </motion.div>
 
@@ -555,15 +491,7 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.1, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.4)' }}
             >
-              <motion.div
-                className="stat-number"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 100, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                50K+
-              </motion.div>
+              <div className="stat-number">50K+</div>
               <div className="stat-label">Posts Shared</div>
             </motion.div>
 
@@ -572,15 +500,7 @@ const Landing = () => {
               variants={itemVariants}
               whileHover={{ scale: 1.1, boxShadow: '0 20px 40px rgba(236, 72, 153, 0.4)' }}
             >
-              <motion.div
-                className="stat-number"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 100, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                100%
-              </motion.div>
+              <div className="stat-number">100%</div>
               <div className="stat-label">Carbon Offset</div>
             </motion.div>
           </motion.div>

@@ -1,38 +1,50 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Award, Leaf, TrendingUp, Heart, Share2, Edit2, Settings, Trophy, Zap } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 import '../styles/profile.css';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('overview');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const token = localStorage.getItem('token');
+            // Accept either `accessToken` (used by JWT login flows) or legacy `token` key
+            const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
+            console.log('Token found:', !!token);
+            // If there's no token, redirect to login so user can authenticate
             if (!token) {
+                console.log('No token found, redirecting to /login');
+                // small timeout to allow any UI state to settle before redirecting
                 setLoading(false);
+                navigate('/login', { replace: true });
                 return;
             }
 
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/accounts/profile/', {
-                    headers: {
-                        Authorization: `Token ${token}`
-                    }
-                });
+                console.log('Fetching profile with token:', token.substring(0, 20) + '...');
+                // Use shared axios instance which attaches Authorization header from localStorage
+                const response = await api.get('/accounts/profile/');
+                console.log('Profile fetched successfully:', response.data);
                 setProfile(response.data);
                 setLoading(false);
             } catch (error) {
-                console.error("Error fetching profile:", error);
+                console.error("Error fetching profile:", error.response?.data || error.message);
+                // If unauthorized, redirect to login to refresh authentication
+                if (error.response && error.response.status === 401) {
+                    navigate('/login', { replace: true });
+                    return;
+                }
                 setLoading(false);
             }
         };
 
         fetchProfile();
-    }, []);
+    }, [navigate]);
 
     if (loading) {
         return (
@@ -51,10 +63,10 @@ const Profile = () => {
         );
     }
 
-    const ecoScore = profile.eco_score || 2450;
-    const postsCount = profile.posts_count || 24;
-    const challengesCompleted = profile.challenges_completed || 8;
-    const treesSaved = profile.trees_saved || 156;
+    const ecoScore = profile.profile.eco_score || 2450;
+    const postsCount = profile.profile.posts_count || 24;
+    const challengesCompleted = profile.profile.challenges_completed || 8;
+    const treesSaved = profile.profile.trees_saved || 156;
 
     return (
         <div className="profile-page">
@@ -73,9 +85,9 @@ const Profile = () => {
                     </motion.div>
 
                     <div className="profile-info">
-                        <h1>{profile.username || 'Eco Warrior'}</h1>
-                        <p className="profile-email">{profile.email}</p>
-                        <p className="profile-joined">Member since {new Date(profile.created_at).toLocaleDateString()}</p>
+                        <h1>{profile.user.username || 'Eco Warrior'}</h1>
+                        <p className="profile-email">{profile.user.email}</p>
+                        <p className="profile-joined">Member since {new Date(profile.user.created_at).toLocaleDateString()}</p>
                         
                         <div className="profile-badges">
                             <motion.div className="badge" whileHover={{ scale: 1.1 }}>
@@ -200,11 +212,11 @@ const Profile = () => {
                             <div className="overview-grid">
                                 <div className="overview-card">
                                     <h4>Bio</h4>
-                                    <p>{profile.bio || '🌱 Passionate about sustainable living and environmental conservation!'}</p>
+                                    <p>{profile.profile.bio || '🌱 Passionate about sustainable living and environmental conservation!'}</p>
                                 </div>
                                 <div className="overview-card">
                                     <h4>Location</h4>
-                                    <p>{profile.location || '🌍 Planet Earth'}</p>
+                                    <p>{profile.profile.location || '🌍 Planet Earth'}</p>
                                 </div>
                                 <div className="overview-card">
                                     <h4>Interests</h4>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+import api from '../services/api';
 import '../styles/auth.css';
 
 const Login = ({ setIsLoggedIn }) => {
@@ -14,6 +14,10 @@ const Login = ({ setIsLoggedIn }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  // If redirected here, `next` query param contains the destination to return to after login
+  const searchParams = new URLSearchParams(location.search);
+  const nextPath = searchParams.get('next') || '/feed';
 
   const handleChange = (e) => {
     setFormData({
@@ -69,8 +73,8 @@ const Login = ({ setIsLoggedIn }) => {
 
     try {
       if (isLogin) {
-        // Login
-        const response = await axios.post('http://localhost:8000/api/accounts/login/', {
+        // Login using shared api instance (baseURL already contains /api)
+        const response = await api.post('/accounts/login/', {
           email: formData.email,
           password: formData.password
         });
@@ -79,21 +83,24 @@ const Login = ({ setIsLoggedIn }) => {
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
 
+        // Ensure api instance uses the new token for subsequent requests
+        api.setAuthToken(response.data.access);
+
         // Update app state
         setIsLoggedIn(true);
 
-        // Redirect to feed
-        navigate('/feed');
+  // Redirect to intended page or feed
+  navigate(nextPath, { replace: true });
       } else {
         // Register
-        await axios.post('http://localhost:8000/api/accounts/register/', {
+        await api.post('/accounts/register/', {
           username: formData.username,
           email: formData.email,
           password: formData.password
         });
 
         // After registration, automatically log in
-        const loginResponse = await axios.post('http://localhost:8000/api/accounts/login/', {
+        const loginResponse = await api.post('/accounts/login/', {
           email: formData.email,
           password: formData.password
         });
@@ -102,11 +109,14 @@ const Login = ({ setIsLoggedIn }) => {
         localStorage.setItem('accessToken', loginResponse.data.access);
         localStorage.setItem('refreshToken', loginResponse.data.refresh);
 
+        // Ensure api uses token
+        api.setAuthToken(loginResponse.data.access);
+
         // Update app state
         setIsLoggedIn(true);
 
-        // Redirect to feed
-        navigate('/feed');
+  // Redirect to intended page or feed
+  navigate(nextPath, { replace: true });
       }
     } catch (error) {
       console.error('Auth error:', error);
