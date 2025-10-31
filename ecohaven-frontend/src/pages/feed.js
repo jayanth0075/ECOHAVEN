@@ -8,7 +8,7 @@ const Feed = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [likedPosts, setLikedPosts] = useState(new Set());
 
-  // Sample posts with diverse content
+  // Sample posts with diverse content and beautiful real images
   const samplePosts = [
     {
       id: 1,
@@ -21,7 +21,7 @@ const Feed = () => {
       tags: ['#bamboo', '#zerowaste', '#sustainable'],
       likes: 342,
       comments: 87,
-      image: '🪥',
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&h=350&fit=crop',
       timestamp: '2 hours ago',
       engagement: 'high'
     },
@@ -36,7 +36,7 @@ const Feed = () => {
       tags: ['#gardening', '#urban', '#farming'],
       likes: 521,
       comments: 134,
-      image: '🌱',
+      image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=350&fit=crop',
       timestamp: '4 hours ago',
       engagement: 'high'
     },
@@ -51,7 +51,7 @@ const Feed = () => {
       tags: ['#community', '#cleanup', '#environment'],
       likes: 789,
       comments: 213,
-      image: '🧹',
+      image: 'https://images.unsplash.com/photo-1559777887-a80bbb2b0b09?w=500&h=350&fit=crop',
       timestamp: '1 day ago',
       engagement: 'high'
     },
@@ -66,7 +66,7 @@ const Feed = () => {
       tags: ['#solar', '#renewable', '#energy'],
       likes: 456,
       comments: 98,
-      image: '☀️',
+      image: 'https://images.unsplash.com/photo-1509391366360-2e938aa1ef14?w=500&h=350&fit=crop',
       timestamp: '6 hours ago',
       engagement: 'medium'
     },
@@ -81,7 +81,7 @@ const Feed = () => {
       tags: ['#zerowaste', '#bathroom', '#eco'],
       likes: 634,
       comments: 156,
-      image: '🚿',
+      image: 'https://images.unsplash.com/photo-1552394907-6552a1b28c94?w=500&h=350&fit=crop',
       timestamp: '8 hours ago',
       engagement: 'high'
     },
@@ -96,7 +96,7 @@ const Feed = () => {
       tags: ['#education', '#composting', '#kids'],
       likes: 378,
       comments: 92,
-      image: '♻️',
+      image: 'https://images.unsplash.com/photo-1559632411-e3a2ad01d454?w=500&h=350&fit=crop',
       timestamp: '1 day ago',
       engagement: 'medium'
     },
@@ -111,7 +111,7 @@ const Feed = () => {
       tags: ['#research', '#ocean', '#plastic'],
       likes: 912,
       comments: 245,
-      image: '🌊',
+      image: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=500&h=350&fit=crop',
       timestamp: '2 days ago',
       engagement: 'high'
     },
@@ -126,7 +126,7 @@ const Feed = () => {
       tags: ['#hiking', '#cleanup', '#nature'],
       likes: 567,
       comments: 134,
-      image: '⛰️',
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=350&fit=crop',
       timestamp: '3 days ago',
       engagement: 'medium'
     },
@@ -141,7 +141,7 @@ const Feed = () => {
       tags: ['#vegan', '#plantbased', '#health'],
       likes: 445,
       comments: 187,
-      image: '🥦',
+      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=350&fit=crop',
       timestamp: '4 days ago',
       engagement: 'high'
     },
@@ -156,7 +156,7 @@ const Feed = () => {
       tags: ['#cycling', '#carfree', '#transport'],
       likes: 823,
       comments: 267,
-      image: '🚴‍♂️',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=350&fit=crop',
       timestamp: '5 days ago',
       engagement: 'high'
     }
@@ -254,7 +254,14 @@ const Feed = () => {
 
                 {/* Post Body */}
                 <div className="post-body-feed">
-                  <div className="post-emoji">{post.image}</div>
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="post-image"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
                   <div className="post-content-feed">
                     <h3>{post.title}</h3>
                     <p>{post.excerpt}</p>
