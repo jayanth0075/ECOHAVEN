@@ -1,4 +1,6 @@
 EcoHaven
+
+
 About the Project
 
 EcoHaven is a community-driven platform designed to encourage sustainable living and environmental awareness among young people. The platform provides a space where users can learn about eco-friendly practices, share ideas, participate in sustainability challenges, and track their positive environmental impact.
