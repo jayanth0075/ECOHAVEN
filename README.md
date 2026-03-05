@@ -1,63 +1,47 @@
-🌱 EcoHaven
+EcoHaven
+About the Project
 
- Why?
+EcoHaven is a community-driven platform designed to encourage sustainable living and environmental awareness among young people. The platform provides a space where users can learn about eco-friendly practices, share ideas, participate in sustainability challenges, and track their positive environmental impact.
 
-EcoHaven addresses the growing need for a dedicated platform where young people can learn, share, and take action towards sustainable living. With climate change being one of the biggest challenges of our generation, we created a space that makes eco-friendly living accessible, engaging, and community-driven.
+The goal of EcoHaven is to make sustainable living more accessible, engaging, and collaborative by combining social interaction with environmental responsibility.
 
+Key Features
 
-## Git LFS and ignored files
+Community Feed – Share eco-friendly tips, experiences, and discussions with other users
 
-This repository excludes common IDE, dependency, build, and virtual environment files. If you need to add large binary files (>100MB) consider using Git LFS instead of committing them directly.
+Sustainability Challenges – Participate in activities that promote eco-friendly habits
 
-Quick setup for contributors:
+Community Sessions – Join groups focused on environmental awareness and wellness
 
-1. Install Git LFS: https://git-lfs.github.com/
-2. Initialize LFS in your clone:
+Impact Tracking – Monitor personal contributions such as carbon footprint reduction and eco-friendly actions
 
-	git lfs install
+Learning Resources – Access information and guidance on sustainable living practices
 
-3. Track large file types (example):
+User Profiles & Rewards – Track eco-scores, earn wellness points, and gain recognition within the community
 
-	git lfs track "*.zip"
+Tech Stack
+Frontend
 
-4. Commit the .gitattributes that Git LFS creates and push as normal.
+React.js
 
-Common files you should not commit are already listed in `.gitignore` (IDE settings, node_modules, .venv, build output, etc.).
+Tailwind CSS
 
-EcoHaven is a community-driven platform focused on wellness and eco-friendly living for young people. It provides:
+Framer Motion
 
-- **Community Feed** - Share eco-friendly tips and stories
-- **Challenges** - Participate in sustainability challenges
-- **Community Sessions** - Join groups focused on environmental topics
-- **Impact Tracking** - Monitor your carbon footprint and contributions
-- **Learning Resources** - Access tips on sustainable living
+Lucide Icons
 
-## Tech Stack
+Backend
 
-**Frontend:**
-- React.js
-- Tailwind CSS
-- Framer Motion (animations)
-- Lucide Icons
+Django
 
-**Backend:**
-- Django
-- Django REST Framework
-- MySQL Database
-- JWT Authentication
+Django REST Framework
 
-## Features
+MySQL
 
-- User authentication and profiles
-- Social feed with posts and comments
-- Eco-score tracking system
-- Wellness points rewards
-- Challenge participation
-- User verification badges
+JWT Authentication
 
-Created by:
-Jayanth
-Laasya
----
+Created By
 
-Building a sustainable future, one line of code at a time 🌱
+Jayanth – 2410080075
+Laasya – 2410080006
+Abhiram – 2410080032
